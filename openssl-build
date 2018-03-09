@@ -38,6 +38,7 @@ cp -r ${OPENSSL_BASE_FOLDER}/* ${OPENSSL_TMP_FOLDER}
 function build_library {
     mkdir -p ${OPENSSL_OUTPUT_PATH}
     export PATH=$TOOLCHAIN_PATH:$PATH
+    make clean
     make && make install
     rm -rf ${OPENSSL_TMP_FOLDER}
     echo "Build completed! Check output libraries in ${OPENSSL_OUTPUT_PATH}"
