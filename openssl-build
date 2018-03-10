@@ -38,7 +38,11 @@ cp -r ${OPENSSL_BASE_FOLDER}/* ${OPENSSL_TMP_FOLDER}
 function build_library {
     mkdir -p ${OPENSSL_OUTPUT_PATH}
     export PATH=$TOOLCHAIN_PATH:$PATH
-    make && make install
+    make CALC_VERSIONS="SHLIB_COMPAT=; SHLIB_SOVER="
+    mkdir -p ${OPENSSL_OUTPUT_PATH}/lib
+    echo "Place holders to avoid symlinks" >> ${OPENSSL_OUTPUT_PATH}/lib/link-shared
+    make SHLIB_EXT=.so install
+    rm ${OPENSSL_OUTPUT_PATH}/lib/link-shared
     rm -rf ${OPENSSL_TMP_FOLDER}
     echo "Build completed! Check output libraries in ${OPENSSL_OUTPUT_PATH}"
 }
